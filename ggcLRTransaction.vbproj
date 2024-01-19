@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{C3C4E4E5-6947-4E6E-9766-366987E92B3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ggcLRTransaction</RootNamespace>
+    <AssemblyName>ggcLRTransaction</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>C:\GGC_Systems\vb.net\</OutputPath>
+    <DocumentationFile>ggcLRTransaction.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ggcLRTransaction.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ggcClient">
+      <HintPath>C:\GGC_Systems\vb.net\Lender\ggcClient.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>C:\GGC_Systems\vb.net\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\GGC_Systems\vb.net\Lender\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\GGC_Systems\vb.net\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIPayment.vb" />
+    <Compile Include="ARPayment.vb" />
+    <Compile Include="ARPayment_MP.vb" />
+    <Compile Include="ARPayment_PR.vb" />
+    <Compile Include="ARPayment_PR_MP.vb" />
+    <Compile Include="ARTrans.vb" />
+    <Compile Include="LRApplicationTransfer.vb" />
+    <Compile Include="McModel.vb" />
+    <Compile Include="CheckReceived.vb" />
+    <Compile Include="CheckReceivedCar.vb" />
+    <Compile Include="LRPayment_PR_Car.vb" />
+    <Compile Include="LRPayment_Car.vb" />
+    <Compile Include="LRMasterCarNeo.vb" />
+    <Compile Include="LRCarSerial.vb" />
+    <Compile Include="LRCarSerialRegistration.vb" />
+    <Compile Include="frmLRMaster.Designer.vb">
+      <DependentUpon>frmLRMaster.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLRMaster.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPaymentInfo.Designer.vb">
+      <DependentUpon>frmPaymentInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPaymentInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReceipt.Designer.vb">
+      <DependentUpon>frmReceipt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReceipt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReleaseInfo.Designer.vb">
+      <DependentUpon>frmReleaseInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReleaseInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LRAdjustment.vb" />
+    <Compile Include="LRApplication.vb" />
+    <Compile Include="LRMaster.vb" />
+    <Compile Include="LRMasterCar.vb" />
+    <Compile Include="LRPayment.vb" />
+    <Compile Include="LRPayment_PR.vb" />
+    <Compile Include="LRTrans.vb" />
+    <Compile Include="LRTransOld.vb" />
+    <Compile Include="MCARMaster.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="CTBilling.vb" />
+    <Compile Include="RedeemableItem.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="frmLRMaster.resx">
+      <DependentUpon>frmLRMaster.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPaymentInfo.resx">
+      <DependentUpon>frmPaymentInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReceipt.resx">
+      <DependentUpon>frmReceipt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReleaseInfo.resx">
+      <DependentUpon>frmReleaseInfo.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ggcAppDriver\ggcAppDriver.vbproj">
+      <Project>{6FA248F3-A2BA-43DF-BE98-032E11714DB5}</Project>
+      <Name>ggcAppDriver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ggcLRReports\ggcLRReports.vbproj">
+      <Project>{6D6E1F9C-92B6-4B7D-9B0A-A372D694C62A}</Project>
+      <Name>ggcLRReports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ggcMCInventory\ggcMCInventory.vbproj">
+      <Project>{DE58A05E-77EA-4276-B54A-8EF85D5E6A63}</Project>
+      <Name>ggcMCInventory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

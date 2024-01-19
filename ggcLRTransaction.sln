@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ggcLRTransaction", "ggcLRTransaction.vbproj", "{C3C4E4E5-6947-4E6E-9766-366987E92B3B}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ggcAppDriver", "..\ggcAppDriver\ggcAppDriver.vbproj", "{6FA248F3-A2BA-43DF-BE98-032E11714DB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3C4E4E5-6947-4E6E-9766-366987E92B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C4E4E5-6947-4E6E-9766-366987E92B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C4E4E5-6947-4E6E-9766-366987E92B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C4E4E5-6947-4E6E-9766-366987E92B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA248F3-A2BA-43DF-BE98-032E11714DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA248F3-A2BA-43DF-BE98-032E11714DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA248F3-A2BA-43DF-BE98-032E11714DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA248F3-A2BA-43DF-BE98-032E11714DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D4E2711-4375-4EFD-849D-B87C6B141799}
+	EndGlobalSection
+EndGlobal
