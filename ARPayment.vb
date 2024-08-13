@@ -867,33 +867,9 @@ Public Class ARPayment
 
     'mac 2020-07-24
     Private Function OnlineEntry() As Boolean
-        Dim lsResultPath As String = "D:\GGC_Java_Systems\temp\res.tmp"
-
-        'delete result file
-        DeleteFile(lsResultPath)
-
         'run command
-        RMJExecute("D:\GGC_Java_Systems\", "gcard-online-points-entry.bat", p_oApp.ProductID & " " & p_oApp.UserID & " " & p_oOthersx.sGCardNox & " " & p_oOthersx.cDigitalx & " " & p_oDTMstr(0)("sReferNox") & " " & p_sSourceCd)
-
-        'get response from result file
-        Dim lsResponse As String = ReadFile(lsResultPath)
-        'delete result file
-        DeleteFile(lsResultPath)
-
-        If lsResponse = "" Then
-            MsgBox("No response from JAVA API.", MsgBoxStyle.Exclamation, "Warning")
-            Return False
-        End If
-
-        'extract data
-        Dim loJSON As JObject = JObject.Parse(lsResponse)
-
-        If loJSON.GetValue("result") = "success" Then
-            MsgBox(loJSON.GetValue("message"), MsgBoxStyle.Information, "Notice")
-        Else
-            MsgBox(CStr(loJSON.GetValue("message")), MsgBoxStyle.Exclamation, "Notice")
-            Return False
-        End If
+        Dim lsVal = p_oApp.ProductID & " " & p_oApp.UserID & " " & p_oOthersx.sGCardNox & " " & p_oOthersx.cDigitalx & " " & p_oDTMstr(0)("sReferNox") & " " & p_sSourceCd & " " & Format(p_oDTMstr(0)("dTransact"), "yyyy-MM-dd")
+        RMJExecute("D:\GGC_Java_Systems\", "gcard-online-points-entry.bat", lsVal)
 
         Return True
     End Function
@@ -1112,30 +1088,36 @@ endWithRoll:
 
             If p_sParent = "" Then p_oApp.CommitTransaction()
 
+            'mac 2024.04.10
+            '   implementation of TDS
+            If Not OnlineEntry() Then
+                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
+            End If
+
             'mac 2020-07-23
             '   added auto encode of online and offline points
-            If p_oOthersx.sGCardNox <> "" And p_oOthersx.cDigitalx <> "" Then 'the card must be activated to use this feature
-                'validate date and product id
-                If Format(p_oApp.SysDate, "yyyy-MM-dd") = Format(p_oDTMstr(0)("dTransact"), "yyyy-MM-dd") And p_oApp.ProductID.ToLower = "integsys" Then
-                    If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
-                        If OnlineEntry() Then
-                            If p_oOthersx.cDigitalx = "1" Then
-                                If Not SendTDS() Then
-                                    MsgBox("Unable to AUTO UPLOAD TDS." & vbCrLf & vbCrLf & "Load GCARD SYSTEM and go to ONLINE POINTS ENTRY HISTORY to get the QR Code for customer's POINTS UPDATE.", MsgBoxStyle.Exclamation, "Notice")
-                                End If
-                            End If
-                        Else
-                            MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
-                        End If
-                    End If
-                Else 'else use OFFLINE ENTRY
-                    If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
-                        If Not OfflineEntry() Then
-                            MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "Please inform MIS Department immediately.", MsgBoxStyle.Exclamation, "Notice")
-                        End If
-                    End If
-                End If
-            End If
+            'If p_oOthersx.sGCardNox <> "" And p_oOthersx.cDigitalx <> "" Then 'the card must be activated to use this feature
+            '    'validate date and product id
+            '    If Format(p_oApp.SysDate, "yyyy-MM-dd") = Format(p_oDTMstr(0)("dTransact"), "yyyy-MM-dd") And p_oApp.ProductID.ToLower = "integsys" Then
+            '        If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
+            '            If OnlineEntry() Then
+            '                If p_oOthersx.cDigitalx = "1" Then
+            '                    If Not SendTDS() Then
+            '                        MsgBox("Unable to AUTO UPLOAD TDS." & vbCrLf & vbCrLf & "Load GCARD SYSTEM and go to ONLINE POINTS ENTRY HISTORY to get the QR Code for customer's POINTS UPDATE.", MsgBoxStyle.Exclamation, "Notice")
+            '                    End If
+            '                End If
+            '            Else
+            '                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
+            '            End If
+            '        End If
+            '    Else 'else use OFFLINE ENTRY
+            '        If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
+            '            If Not OfflineEntry() Then
+            '                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "Please inform MIS Department immediately.", MsgBoxStyle.Exclamation, "Notice")
+            '            End If
+            '        End If
+            '    End If
+            'End If
             'end - mac 2020-07-23
 
             Return True
