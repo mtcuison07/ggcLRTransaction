@@ -1034,41 +1034,41 @@ endWithRoll:
             Return False
         End If
 
-
-
         'mac 2020-03-09
         Try
             If p_sParent = "" Then p_oApp.BeginTransaction()
 
-            Dim loTrans As ARTrans
+            If p_oDTMstr(0).Item("cTranType") <> "9" Then
+                Dim loTrans As ARTrans
 
-            loTrans = New ARTrans(p_oApp)
-            loTrans.Master("sAcctNmbr") = p_oDTMstr(0).Item("sAcctNmbr")
-            loTrans.Master("dTransact") = p_oDTMstr(0).Item("dTransact")
-            loTrans.Master("nTranAmtx") = p_oDTMstr(0).Item("nAmountxx")
-            loTrans.Master("nRebatesx") = p_oDTMstr(0).Item("nRebatesx")
-            loTrans.Master("nPenaltyx") = p_oDTMstr(0).Item("nPenaltyx")
-            loTrans.Master("sRemarksx") = p_oDTMstr(0).Item("sRemarksx")
-            loTrans.Master("sReferNox") = p_oDTMstr(0).Item("sReferNox")
-            loTrans.Master("sCollIDxx") = p_oDTMstr(0).Item("sCollIDxx")
+                loTrans = New ARTrans(p_oApp)
+                loTrans.Master("sAcctNmbr") = p_oDTMstr(0).Item("sAcctNmbr")
+                loTrans.Master("dTransact") = p_oDTMstr(0).Item("dTransact")
+                loTrans.Master("nTranAmtx") = p_oDTMstr(0).Item("nAmountxx")
+                loTrans.Master("nRebatesx") = p_oDTMstr(0).Item("nRebatesx")
+                loTrans.Master("nPenaltyx") = p_oDTMstr(0).Item("nPenaltyx")
+                loTrans.Master("sRemarksx") = p_oDTMstr(0).Item("sRemarksx")
+                loTrans.Master("sReferNox") = p_oDTMstr(0).Item("sReferNox")
+                loTrans.Master("sCollIDxx") = p_oDTMstr(0).Item("sCollIDxx")
 
-            Select Case p_oDTMstr(0).Item("cTranType")
-                Case "2"
-                    If Not loTrans.MonthlyPayment(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
-                        If p_sParent = "" Then p_oApp.RollBackTransaction()
-                        Return False
-                    End If
-                Case "3"
-                    If Not loTrans.CashBalance(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
-                        If p_sParent = "" Then p_oApp.RollBackTransaction()
-                        Return False
-                    End If
-                Case "4"
-                    If Not loTrans.DownPayment(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
-                        If p_sParent = "" Then p_oApp.RollBackTransaction()
-                        Return False
-                    End If
-            End Select
+                Select Case p_oDTMstr(0).Item("cTranType")
+                    Case "2"
+                        If Not loTrans.MonthlyPayment(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
+                            If p_sParent = "" Then p_oApp.RollBackTransaction()
+                            Return False
+                        End If
+                    Case "3"
+                        If Not loTrans.CashBalance(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
+                            If p_sParent = "" Then p_oApp.RollBackTransaction()
+                            Return False
+                        End If
+                    Case "4"
+                        If Not loTrans.DownPayment(p_oDTMstr(0).Item("sTransNox"), Trim(p_oDTMstr(0).Item("sCollIDxx")) = "") Then
+                            If p_sParent = "" Then p_oApp.RollBackTransaction()
+                            Return False
+                        End If
+                End Select
+            End If
 
             p_oDTMstr(0).Item("cPostedxx") = CStr(xeTranStat.TRANS_POSTED)
             p_oDTMstr(0).Item("dPostedxx") = p_oApp.getSysDate
@@ -1088,37 +1088,13 @@ endWithRoll:
 
             If p_sParent = "" Then p_oApp.CommitTransaction()
 
-            'mac 2024.04.10
-            '   implementation of TDS
-            If Not OnlineEntry() Then
-                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
+            If p_oDTMstr(0).Item("cTranType") = "2" Then
+                'mac 2024.04.10
+                '   implementation of TDS
+                If Not OnlineEntry() Then
+                    MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
+                End If
             End If
-
-            'mac 2020-07-23
-            '   added auto encode of online and offline points
-            'If p_oOthersx.sGCardNox <> "" And p_oOthersx.cDigitalx <> "" Then 'the card must be activated to use this feature
-            '    'validate date and product id
-            '    If Format(p_oApp.SysDate, "yyyy-MM-dd") = Format(p_oDTMstr(0)("dTransact"), "yyyy-MM-dd") And p_oApp.ProductID.ToLower = "integsys" Then
-            '        If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
-            '            If OnlineEntry() Then
-            '                If p_oOthersx.cDigitalx = "1" Then
-            '                    If Not SendTDS() Then
-            '                        MsgBox("Unable to AUTO UPLOAD TDS." & vbCrLf & vbCrLf & "Load GCARD SYSTEM and go to ONLINE POINTS ENTRY HISTORY to get the QR Code for customer's POINTS UPDATE.", MsgBoxStyle.Exclamation, "Notice")
-            '                    End If
-            '                End If
-            '            Else
-            '                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "You may ENCODE the client's POINTS on GCARD SYSTEM.", MsgBoxStyle.Exclamation, "Notice")
-            '            End If
-            '        End If
-            '    Else 'else use OFFLINE ENTRY
-            '        If p_oDTMstr(0)("cGCrdPstd") = xeLogical.NO Then 'transaction must not be used on G-Card
-            '            If Not OfflineEntry() Then
-            '                MsgBox("Unable to AUTO ENTRY POINTS." & vbCrLf & vbCrLf & "Please inform MIS Department immediately.", MsgBoxStyle.Exclamation, "Notice")
-            '            End If
-            '        End If
-            '    End If
-            'End If
-            'end - mac 2020-07-23
 
             Return True
         Catch ex As Exception
