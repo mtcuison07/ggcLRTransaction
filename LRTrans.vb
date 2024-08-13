@@ -567,7 +567,7 @@ Public Class LRTrans
                 'kalyptus - 2022.10.14 01:49pm
                 'Set the closing date based on the transaction date of this transaction
                 'if this transaction makes our balance equal or less than zero(0)
-                If lnABalance <= 0 And IsDate(ldClosedxx) Then
+                If lnABalance <= 0 And Not IsDate(ldClosedxx) Then
                     ldClosedxx = loDtaLdgr(lnRow).Item("dTransact")
                 End If
 
