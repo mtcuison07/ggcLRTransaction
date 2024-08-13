@@ -254,12 +254,14 @@ Public Class ARTrans
 
                 'kalyptus-2022.10.22 09:46am
                 'Update the dClosedxx field if this is the first time the balance becomes less or equals to zero
-                If p_nTranAmtx + p_oDTMstr(0).Item("nABalance") > 0 Then
-                    lsSQLMstr = "UPDATE " & p_sMasTable & _
-                               " SET dClosedxx = " & dateParm(p_dTransact) & _
-                                  ", cAcctstat = " & strParm(xeActStatClosed) & _
-                                  ", nDelayAvg = " & lnDelayAvg & _
-                                  ", cRatingxx = " & strParm(getRating(lnDelayAvg, p_oDTMstr(0).Item("cRatingxx"), p_oDTMstr(0).Item("nAcctTerm"))) & _
+                If p_nTranAmtx + p_oDTMstr(0).Item("nABalance") > 0 Or
+                    p_oDTMstr(0).Item("cAcctstat") = xeActStatClosed Then
+
+                    lsSQLMstr = "UPDATE " & p_sMasTable &
+                               " SET dClosedxx = " & dateParm(p_dTransact) &
+                                  ", cAcctstat = " & strParm(xeActStatClosed) &
+                                  ", nDelayAvg = " & lnDelayAvg &
+                                  ", cRatingxx = " & strParm(getRating(lnDelayAvg, p_oDTMstr(0).Item("cRatingxx"), p_oDTMstr(0).Item("nAcctTerm"))) &
                                " WHERE sAcctNmbr = " & strParm(p_sAcctNmbr)
                 Else
                     lsSQLMstr = "UPDATE " & p_sMasTable & _
